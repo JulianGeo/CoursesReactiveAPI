@@ -1,4 +1,4 @@
-package com.reactiveAPP.studentsAPI.config;
+package com.reactiveAPP.coursesAPI.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

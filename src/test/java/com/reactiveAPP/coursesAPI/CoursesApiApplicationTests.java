@@ -1,10 +1,10 @@
-package com.reactiveAPP.studentsAPI;
+package com.reactiveAPP.coursesAPI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StudentsApiApplicationTests {
+class CoursesApiApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,13 +1,13 @@
-package com.reactiveAPP.studentsAPI;
+package com.reactiveAPP.coursesAPI;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StudentsApiApplication {
+public class CoursesApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StudentsApiApplication.class, args);
+		SpringApplication.run(CoursesApiApplication.class, args);
 	}
 
 }
