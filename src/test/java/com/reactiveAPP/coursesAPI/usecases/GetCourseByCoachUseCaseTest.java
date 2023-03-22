@@ -17,52 +17,49 @@ import reactor.test.StepVerifier;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class GetCourseByNameUseCaseTest {
-
+class GetCourseByCoachUseCaseTest {
 
     @Mock
     CourseRepository repoMock;
     ModelMapper mapper;
-    GetCourseByNameUseCase getCourseByNameUseCase;
+    GetCourseByCoachUseCase getCourseByCoachUseCase;
 
     @BeforeEach
     void init(){
         mapper = new ModelMapper();
-        getCourseByNameUseCase = new GetCourseByNameUseCase(repoMock, mapper);
+        getCourseByCoachUseCase = new GetCourseByCoachUseCase(repoMock, mapper);
     }
 
     @Test
-    @DisplayName("getCourseByName_Success")
-    void getCourseByName(){
+    @DisplayName("getCourseByCoach_Success")
+    void getCourseByCoach(){
         var fluxCourses = Flux.just(
                 InstanceProvider.getCourses().get(0),
                 InstanceProvider.getCourses().get(1),
                 InstanceProvider.getCourses().get(2));
 
-        Mockito.when(repoMock.findByName(ArgumentMatchers.anyString())).thenReturn(fluxCourses);
+        Mockito.when(repoMock.findByCoach(ArgumentMatchers.anyString())).thenReturn(fluxCourses);
 
-        var service = getCourseByNameUseCase.apply("");
+        var service = getCourseByCoachUseCase.apply("");
 
         StepVerifier.create(service)
-                .expectNextMatches(courseDTO -> courseDTO.getName().equals("Angular1"))
+                .expectNextMatches(courseDTO -> courseDTO.getCoach().equals("Raul"))
                 .expectNextCount(2)
                 .verifyComplete();
-        Mockito.verify(repoMock).findByName(ArgumentMatchers.anyString());
+        Mockito.verify(repoMock).findByCoach(ArgumentMatchers.anyString());
     }
 
     @Test
-    @DisplayName("getCourseByNonExistingName_UnSuccess")
-    void getCourseNonExistingName(){
+    @DisplayName("getCourseByNonExistingCoach_UnSuccess")
+    void getCourseByNonExistingCoach(){
 
-        Mockito.when(repoMock.findByName(ArgumentMatchers.anyString())).thenReturn(Flux.empty());
+        Mockito.when(repoMock.findByCoach(ArgumentMatchers.anyString())).thenReturn(Flux.empty());
 
-        var service = getCourseByNameUseCase.apply("");
+        var service = getCourseByCoachUseCase.apply("");
 
         StepVerifier.create(service)
                 .expectErrorMessage("No courses found")
                 .verify();
-        Mockito.verify(repoMock).findByName(ArgumentMatchers.anyString());
+        Mockito.verify(repoMock).findByCoach(ArgumentMatchers.anyString());
     }
-
-
 }

@@ -32,7 +32,7 @@ class GetCourseByIdUseCaseTest {
 
     @Test
     @DisplayName("getCourseById_Success")
-    void getStudentById(){
+    void getCourseById(){
         var courseID = "ID1";
         var course = Mono.just(InstanceProvider.getCourse());
 
@@ -49,7 +49,7 @@ class GetCourseByIdUseCaseTest {
 
     @Test
     @DisplayName("getStudentById_NonSuccess")
-    void getStudentByNonExistingID(){
+    void getCourseByNonExistingID(){
         var courseID = "ID1";
 
         Mockito.when(repoMock.findById(courseID)).thenReturn(Mono.empty());

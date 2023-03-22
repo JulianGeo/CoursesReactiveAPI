@@ -33,7 +33,7 @@ class SaveCourseUseCaseTest {
 
     @Test
     @DisplayName("saveCourse_Success")
-    void SaveStudent(){
+    void SaveCourse(){
         var courseDTO =mapper.map(InstanceProvider.getCourse(), CourseDTO.class);
 
         Mockito.when(repoMock.save(mapper.map(courseDTO, Course.class)))

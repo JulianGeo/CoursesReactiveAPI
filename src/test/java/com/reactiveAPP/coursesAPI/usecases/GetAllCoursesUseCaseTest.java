@@ -31,7 +31,7 @@ class GetAllCoursesUseCaseTest {
 
     @Test
     @DisplayName("getAllCourses_Success")
-    void getAllBooks(){
+    void getAllCourses(){
         var fluxStudents = Flux.just(
                 InstanceProvider.getCourses().get(0),
                 InstanceProvider.getCourses().get(1),

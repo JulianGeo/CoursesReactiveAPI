@@ -34,7 +34,7 @@ class UpdateCourseUseCaseTest {
 
     @Test
     @DisplayName("updateCourse_Success")
-    void updateStudent(){
+    void updateCourse(){
         var courseID = "ID1";
         var oldCourse = Mono.just(InstanceProvider.getCourse());
         var newCourse = InstanceProvider.getCourseToUpdate();
@@ -55,7 +55,7 @@ class UpdateCourseUseCaseTest {
 
     @Test
     @DisplayName("updateCourse_NonSuccess")
-    void updateStudentByNonExistingID(){
+    void updateCourseByNonExistingID(){
         var courseID = "ID1";
         var newCourse = InstanceProvider.getCourseToUpdate();
         var monoNewCourse = Mono.just(InstanceProvider.getCourseToUpdate());
