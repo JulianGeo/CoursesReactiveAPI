@@ -16,7 +16,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection="students")
+@Document(collection="courses")
 public class Course {
 
     @Id
@@ -27,7 +27,7 @@ public class Course {
     private String name;
 
     @NotBlank(message="Empty field error")
-    @NotNull(message ="lastname is required")
+    @NotNull(message ="description is required")
     private String description;
 
     //TODO: add all validations

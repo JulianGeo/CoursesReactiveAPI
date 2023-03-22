@@ -3,12 +3,18 @@ package com.reactiveAPP.coursesAPI.domain.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CourseDTO {
     @Id
     private String id =UUID.randomUUID().toString().substring(0,10);
