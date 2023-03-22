@@ -20,8 +20,9 @@ public class DeleteCourseUseCase implements Function<String, Mono<Void>> {
     public Mono<Void> apply(String Id) {
         return this.courseRepository
                 .findById(Id)
-                .switchIfEmpty(Mono.error(new Throwable("Course not found")))
+                .switchIfEmpty(Mono.error(new ClassNotFoundException("Course not found")))
                 .flatMap(course -> this.courseRepository.deleteById(Id))
-                .onErrorResume(Mono::error);
+                //TODO: fix it to catch the error
+                .onErrorResume(throwable -> Mono.error(throwable));
     }
 }

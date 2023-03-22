@@ -3,6 +3,7 @@ package com.reactiveAPP.coursesAPI.router;
 import com.reactiveAPP.coursesAPI.domain.dto.CourseDTO;
 import com.reactiveAPP.coursesAPI.usecases.DeleteCourseUseCase;
 import com.reactiveAPP.coursesAPI.usecases.GetAllCoursesUseCase;
+import com.reactiveAPP.coursesAPI.usecases.GetCourseByIdUseCase;
 import com.reactiveAPP.coursesAPI.usecases.SaveCourseUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
@@ -29,6 +31,18 @@ public class CourseRouter {
                         .body(BodyInserters.fromPublisher(getAllCoursesUseCase.get(), CourseDTO.class))
                         .onErrorResume(throwable -> ServerResponse.status(HttpStatus.NO_CONTENT).bodyValue(throwable.getMessage())));
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> getStudentById(GetCourseByIdUseCase getCourseByIdUseCase){
+        return route(GET("/api/courses/{id}"),
+                request -> getCourseByIdUseCase.apply(request.pathVariable("id"))
+                        .switchIfEmpty(Mono.error(new Throwable(HttpStatus.NO_CONTENT.toString())))
+                        .flatMap(courseDTO -> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(courseDTO))
+                        .onErrorResume(throwable -> ServerResponse.notFound().build()));
+    }
+
 
     @Bean
     public RouterFunction<ServerResponse> saveCourse(SaveCourseUseCase saveCourseUseCase){
@@ -50,7 +64,6 @@ public class CourseRouter {
                                 .bodyValue("Course with ID: "+request.pathVariable("id") +", was deleted"))
                         .flatMap(serverResponseMono -> serverResponseMono)
                         .onErrorResume(throwable -> ServerResponse.status(HttpStatus.NO_CONTENT).bodyValue(throwable.getMessage())));
-
     }
 
 }
