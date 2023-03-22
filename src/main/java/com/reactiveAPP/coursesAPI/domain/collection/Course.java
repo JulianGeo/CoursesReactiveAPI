@@ -32,6 +32,9 @@ public class Course {
     private String description;
 
     //TODO: add all validations
+    @NotBlank(message="Empty field error")
+    @NotNull(message ="name is required")
+    @Pattern(regexp="^[A-Z][a-z]*$", message="name format is required")
     private String coach;
     private String level;
     private Set<Student> students = new HashSet<>();
