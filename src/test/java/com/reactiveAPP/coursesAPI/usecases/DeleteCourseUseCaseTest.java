@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -31,7 +32,7 @@ class DeleteCourseUseCaseTest {
 
     @Test
     @DisplayName("deleteCourseByID_Success")
-    void deleteStudent(){
+    void deleteCourse(){
         var courseID = "ID1";
         var course = Mono.just(InstanceProvider.getCourse());
 
@@ -44,6 +45,22 @@ class DeleteCourseUseCaseTest {
                 .expectNextCount(0)
                 .verifyComplete();
         Mockito.verify(repoMock).deleteById(courseID);
+    }
+
+    @Test
+    @DisplayName("deleteCourseByID_Unsuccess")
+    void deleteCourseUnsuccess(){
+        var courseID = "ID1";
+        var course = Mono.just(InstanceProvider.getCourse());
+
+        Mockito.when(repoMock.findById(ArgumentMatchers.anyString())).thenReturn(Mono.empty());
+
+        var service = deleteCourseUseCase.apply(courseID);
+
+        StepVerifier.create(service)
+                .expectError(Throwable.class)
+                .verify();
+        Mockito.verify(repoMock).findById(courseID);
     }
 
 }

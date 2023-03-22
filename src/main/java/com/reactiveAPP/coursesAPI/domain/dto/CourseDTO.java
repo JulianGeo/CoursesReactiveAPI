@@ -1,5 +1,6 @@
 package com.reactiveAPP.coursesAPI.domain.dto;
 
+import com.reactiveAPP.coursesAPI.domain.student.Student;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -30,5 +31,5 @@ public class CourseDTO {
     //TODO: add all validations
     private String coach;
     private String level;
-    private Set<String> students = new HashSet<>();
+    private Set<Student> students = new HashSet<>();
 }
