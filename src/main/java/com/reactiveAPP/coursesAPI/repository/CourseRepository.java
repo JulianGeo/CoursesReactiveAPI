@@ -9,4 +9,5 @@ import reactor.core.publisher.Flux;
 public interface CourseRepository extends ReactiveMongoRepository<Course, String> {
 
     Flux<Course> findByName(String name);
+    Flux<Course> findByCoach(String coachName);
 }

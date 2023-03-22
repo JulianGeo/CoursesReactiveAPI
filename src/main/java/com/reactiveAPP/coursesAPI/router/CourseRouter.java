@@ -42,11 +42,20 @@ public class CourseRouter {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> getStudentByName(GetCourseByNameUseCase getCourseByNameUseCase){
+    public RouterFunction<ServerResponse> getCourseByName(GetCourseByNameUseCase getCourseByNameUseCase){
         return route(GET("/api/courses/name/{name}"),
                 request -> ServerResponse.status(201)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(getCourseByNameUseCase.apply(request.pathVariable("name")), CourseDTO.class))
+                        .onErrorResume(throwable -> ServerResponse.status(HttpStatus.NO_CONTENT).bodyValue(throwable.getMessage())));
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getCourseByCoach(GetCourseByCoachUseCase getCourseByCoachUseCase){
+        return route(GET("/api/courses/coachname/{name}"),
+                request -> ServerResponse.status(201)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getCourseByCoachUseCase.apply(request.pathVariable("name")), CourseDTO.class))
                         .onErrorResume(throwable -> ServerResponse.status(HttpStatus.NO_CONTENT).bodyValue(throwable.getMessage())));
     }
 
