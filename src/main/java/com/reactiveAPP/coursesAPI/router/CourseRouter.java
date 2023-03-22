@@ -1,10 +1,7 @@
 package com.reactiveAPP.coursesAPI.router;
 
 import com.reactiveAPP.coursesAPI.domain.dto.CourseDTO;
-import com.reactiveAPP.coursesAPI.usecases.DeleteCourseUseCase;
-import com.reactiveAPP.coursesAPI.usecases.GetAllCoursesUseCase;
-import com.reactiveAPP.coursesAPI.usecases.GetCourseByIdUseCase;
-import com.reactiveAPP.coursesAPI.usecases.SaveCourseUseCase;
+import com.reactiveAPP.coursesAPI.usecases.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -49,6 +46,18 @@ public class CourseRouter {
         return route(POST("/api/courses").and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(CourseDTO.class)
                         .flatMap(courseDTO -> saveCourseUseCase.apply(courseDTO)
+                                .flatMap(result -> ServerResponse.status(201)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .bodyValue(result))
+                                .onErrorResume(throwable -> ServerResponse.status(HttpStatus.NOT_ACCEPTABLE).bodyValue(throwable.getMessage()))));
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> updateCourse(UpdateCourseUseCase updateCourseUseCase){
+        return route(PUT("/api/courses/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(CourseDTO.class)
+                        .flatMap(courseDTO -> updateCourseUseCase.apply(request.pathVariable("id"), courseDTO)
+                                .switchIfEmpty(Mono.error(new Throwable(HttpStatus.NO_CONTENT.toString())))
                                 .flatMap(result -> ServerResponse.status(201)
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .bodyValue(result))
