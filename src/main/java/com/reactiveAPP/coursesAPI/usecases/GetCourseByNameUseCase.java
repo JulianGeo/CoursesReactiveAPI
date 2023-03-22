@@ -21,7 +21,7 @@ public class GetCourseByNameUseCase implements Function<String, Flux<CourseDTO>>
     public Flux<CourseDTO> apply(String name) {
         return this.courseRepository
                 .findByName(name)
-                .switchIfEmpty(Mono.empty())
+                .switchIfEmpty(Flux.error(new Throwable("No courses found")))
                 .map(course -> mapper.map(course, CourseDTO.class));
     }
 }
