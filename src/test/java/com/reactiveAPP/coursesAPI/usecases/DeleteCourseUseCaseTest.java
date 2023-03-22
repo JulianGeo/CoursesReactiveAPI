@@ -48,7 +48,7 @@ class DeleteCourseUseCaseTest {
     }
 
     @Test
-    @DisplayName("deleteCourseByID_Unsuccess")
+    @DisplayName("deleteCourseByNonExistingID_Unsuccess")
     void deleteCourseUnsuccess(){
         var courseID = "ID1";
         var course = Mono.just(InstanceProvider.getCourse());

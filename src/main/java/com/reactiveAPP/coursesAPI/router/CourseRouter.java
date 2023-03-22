@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
@@ -38,6 +39,15 @@ public class CourseRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(courseDTO))
                         .onErrorResume(throwable -> ServerResponse.notFound().build()));
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> getStudentByName(GetCourseByNameUseCase getCourseByNameUseCase){
+        return route(GET("/api/courses/name/{name}"),
+                request -> ServerResponse.status(201)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getCourseByNameUseCase.apply(request.pathVariable("name")), CourseDTO.class))
+                        .onErrorResume(throwable -> ServerResponse.status(HttpStatus.NO_CONTENT).bodyValue(throwable.getMessage())));
     }
 
 
