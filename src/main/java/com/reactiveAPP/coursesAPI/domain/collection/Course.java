@@ -37,5 +37,5 @@ public class Course {
     @Pattern(regexp="^[A-Z][a-z]*$", message="name format is required")
     private String coach;
     private String level;
-    private Set<String> studentDTOSID= new HashSet<>();
+    private Set<StudentDTO> students= new HashSet<>();
 }

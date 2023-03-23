@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -18,9 +19,9 @@ public class StudentDTO {
     private String lastname;
     private String email;
     private String plan;
-    private Set<String> coursesID;
+    private Set<Course> courses;
 
-    public StudentDTO(String id, String idNum, String name, String lastname, String email, String plan, Set<String> courses) {
+    public StudentDTO(String id, String idNum, String name, String lastname, String email, String plan, Set<Course> courses) {
         System.out.println("student constructor used");
         this.id=id;
         this.idNum=idNum;
@@ -28,7 +29,7 @@ public class StudentDTO {
         this.lastname=lastname;
         this.email=email;
         this.plan=plan;
-        this.coursesID=courses;
+        this.courses=courses;
     }
 }
 

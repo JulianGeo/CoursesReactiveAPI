@@ -30,5 +30,5 @@ public class CourseDTO {
     //TODO: add all validations
     private String coach;
     private String level;
-    private Set<String> studentDTOSID= new HashSet<>();
+    private Set<StudentDTO> students= new HashSet<>();
 }

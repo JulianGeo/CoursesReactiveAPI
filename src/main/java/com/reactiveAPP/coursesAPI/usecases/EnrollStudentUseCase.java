@@ -1,5 +1,6 @@
 package com.reactiveAPP.coursesAPI.usecases;
 
+import com.reactiveAPP.coursesAPI.consumer.StudentEvent;
 import com.reactiveAPP.coursesAPI.domain.dto.CourseDTO;
 import com.reactiveAPP.coursesAPI.domain.student.StudentDTO;
 import com.reactiveAPP.coursesAPI.repository.CourseRepository;
@@ -13,24 +14,25 @@ import java.util.function.BiFunction;
 
 @Service
 @AllArgsConstructor
-public class EnrollStudentUseCase implements BiFunction<String, String, Mono<CourseDTO>> {
+public class EnrollStudentUseCase implements BiFunction<StudentDTO, String, Mono<CourseDTO>> {
 
     private final ModelMapper mapper;
     private final CourseRepository courseRepository;
 
     @Override
-    public Mono<CourseDTO> apply(String studentID, String courseID) {
+    public Mono<CourseDTO> apply(StudentDTO studentDTO, String courseID) {
         System.out.println("use case used");
         System.out.println("courseID:" +courseID);
+        System.out.println("studentName:" +studentDTO.getName());
         return this.courseRepository
                 .findById(courseID)
                 .switchIfEmpty(Mono.error(new Throwable("Course not found")))
                 .flatMap(course -> {
-                    Set<String> students1 = course.getStudentDTOSID();
+                    Set<StudentDTO> students1 = course.getStudents();
                     System.out.println("course id inside the return"+courseID);
                     //System.out.printf(courseID);
-                    students1.add(studentID);
-                    course.setStudentDTOSID(students1);
+                    students1.add(studentDTO);
+                    course.setStudents(students1);
                     return this.courseRepository.save(course);
                 }).map(course -> mapper.map(course, CourseDTO.class));
     }

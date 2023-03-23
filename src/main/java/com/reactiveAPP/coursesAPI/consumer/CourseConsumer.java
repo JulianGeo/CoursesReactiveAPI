@@ -19,10 +19,10 @@ public class CourseConsumer {
     public void receiveEventBook(String message) throws JsonProcessingException {
         StudentEvent event = objectMapper.readValue(message, StudentEvent.class);
         if (event.getEventType().equals("enroll")){
-            enrollStudentUseCase.apply(event.getStudentID(), event.getCourseID()).subscribe();
+            enrollStudentUseCase.apply(event.getStudentDTO(), event.getCourseID()).subscribe();
         }
         if (event.getEventType().equals("unenroll")){
-            unenrollCourseUseCase.apply(event.getStudentID(), event.getCourseID()).subscribe();
+            unenrollCourseUseCase.apply(event.getStudentDTO(), event.getCourseID()).subscribe();
         }
     }
 

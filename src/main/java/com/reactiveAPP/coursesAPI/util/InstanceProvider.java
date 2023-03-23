@@ -24,11 +24,11 @@ public class InstanceProvider {
         return new Course("ID2", "SpringBoot1", "Springboot course", "Mishel", "3", getStudents());
     }
 
-    public static Set<String> getStudents(){
+    public static Set<StudentDTO> getStudents(){
         return Set.of(
-                "StudentID"
+                //"StudentID"
                 //new StudentDTO()
-                //new StudentDTO("Id1", "idNum1", "Elvis", "Crespo", "elvis@gmail.com","basic",new HashSet<>()),
+                new StudentDTO("Id1", "idNum1", "Elvis", "Crespo", "elvis@gmail.com","basic",new HashSet<>())
                 //new StudentDTO("Id2", "idNum2", "Elvis", "Presley", "elvis@gmail.com","basic",new HashSet<>()),
                 //new StudentDTO("Id3", "idNum3", "Elvis", "Costello", "elvis@gmail.com","basic",new HashSet<>())
         );
