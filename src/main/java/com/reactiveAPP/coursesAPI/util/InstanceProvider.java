@@ -1,7 +1,7 @@
 package com.reactiveAPP.coursesAPI.util;
 
 import com.reactiveAPP.coursesAPI.domain.collection.Course;
-import com.reactiveAPP.coursesAPI.domain.student.Student;
+import com.reactiveAPP.coursesAPI.domain.student.StudentDTO;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,14 +21,16 @@ public class InstanceProvider {
     }
 
     public static Course getCourseToUpdate(){
-        return new Course("ID3", "React5","React course" ,"Julian", "5", getStudents());
+        return new Course("ID2", "SpringBoot1", "Springboot course", "Mishel", "3", getStudents());
     }
 
-    public static Set<Student> getStudents(){
+    public static Set<String> getStudents(){
         return Set.of(
-                new Student("Id1", "idNum1", "Elvis", "Crespo", "elvis@gmail.com","basic",new HashSet<>()),
-                new Student("Id2", "idNum2", "Elvis", "Presley", "elvis@gmail.com","basic",new HashSet<>()),
-                new Student("Id3", "idNum3", "Elvis", "Costello", "elvis@gmail.com","basic",new HashSet<>())
+                "StudentID"
+                //new StudentDTO()
+                //new StudentDTO("Id1", "idNum1", "Elvis", "Crespo", "elvis@gmail.com","basic",new HashSet<>()),
+                //new StudentDTO("Id2", "idNum2", "Elvis", "Presley", "elvis@gmail.com","basic",new HashSet<>()),
+                //new StudentDTO("Id3", "idNum3", "Elvis", "Costello", "elvis@gmail.com","basic",new HashSet<>())
         );
     }
 }

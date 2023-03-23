@@ -1,6 +1,6 @@
 package com.reactiveAPP.coursesAPI.domain.collection;
 
-import com.reactiveAPP.coursesAPI.domain.student.Student;
+import com.reactiveAPP.coursesAPI.domain.student.StudentDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -37,5 +37,5 @@ public class Course {
     @Pattern(regexp="^[A-Z][a-z]*$", message="name format is required")
     private String coach;
     private String level;
-    private Set<Student> students = new HashSet<>();
+    private Set<String> studentDTOSID= new HashSet<>();
 }

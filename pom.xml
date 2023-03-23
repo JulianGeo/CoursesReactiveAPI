@@ -12,7 +12,7 @@
 	<artifactId>coursesAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>coursesAPI</name>
-	<description>Reactive CRUD for courses in a course-student app</description>
+	<description>Reactive CRUD for courses in a course-studentDTO app</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

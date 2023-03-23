@@ -1,9 +1,8 @@
 package com.reactiveAPP.coursesAPI.domain.dto;
 
-import com.reactiveAPP.coursesAPI.domain.student.Student;
+import com.reactiveAPP.coursesAPI.domain.student.StudentDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,5 +30,5 @@ public class CourseDTO {
     //TODO: add all validations
     private String coach;
     private String level;
-    private Set<Student> students = new HashSet<>();
+    private Set<String> studentDTOSID= new HashSet<>();
 }

@@ -32,17 +32,18 @@ class GetAllCoursesUseCaseTest {
     @Test
     @DisplayName("getAllCourses_Success")
     void getAllCourses(){
-        var fluxStudents = Flux.just(
+        var fluxCourses = Flux.just(
                 InstanceProvider.getCourses().get(0),
                 InstanceProvider.getCourses().get(1),
                 InstanceProvider.getCourses().get(2));
 
-        Mockito.when(repoMock.findAll()).thenReturn(fluxStudents);
+        Mockito.when(repoMock.findAll()).thenReturn(fluxCourses);
 
         var service = getAllCoursesUseCase.get();
 
         StepVerifier.create(service)
-                .expectNextCount(3)
+                .expectNextMatches(courseDTO -> courseDTO.getCoach().equals(InstanceProvider.getCourses().get(0).getCoach()))
+                .expectNextCount(2)
                 .verifyComplete();
         Mockito.verify(repoMock).findAll();
     }

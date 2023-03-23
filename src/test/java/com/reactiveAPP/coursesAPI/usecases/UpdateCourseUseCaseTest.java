@@ -47,7 +47,7 @@ class UpdateCourseUseCaseTest {
                 mapper.map(newCourse, CourseDTO.class));
 
         StepVerifier.create(service)
-                .expectNextCount(1)
+                .expectNext(mapper.map(InstanceProvider.getCourseToUpdate(), CourseDTO.class))
                 .verifyComplete();
         Mockito.verify(repoMock).findById(courseID);
         Mockito.verify(repoMock).save(ArgumentMatchers.any(Course.class));
@@ -73,6 +73,6 @@ class UpdateCourseUseCaseTest {
                 .verify();
         Mockito.verify(repoMock).findById(courseID);
 
-        //Mockito.verify(repoMock).save(ArgumentMatchers.any(Student.class));
+        //Mockito.verify(repoMock).save(ArgumentMatchers.any(StudentDTO.class));
     }
 }
