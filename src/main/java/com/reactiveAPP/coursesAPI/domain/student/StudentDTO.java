@@ -19,9 +19,9 @@ public class StudentDTO {
     private String lastname;
     private String email;
     private String plan;
-    private Set<Course> courses;
+    private Set<String> courses;
 
-    public StudentDTO(String id, String idNum, String name, String lastname, String email, String plan, Set<Course> courses) {
+    public StudentDTO(String id, String idNum, String name, String lastname, String email, String plan, Set<String> courses) {
         System.out.println("student constructor used");
         this.id=id;
         this.idNum=idNum;

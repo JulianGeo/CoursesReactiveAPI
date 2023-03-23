@@ -20,8 +20,7 @@ public class UnenrollCourseUseCase implements BiFunction<StudentDTO, String, Mon
 
     @Override
     public Mono<CourseDTO> apply(StudentDTO studentDTO, String courseID) {
-/*        System.out.println("use case used");
-        System.out.println("courseID:" +courseID);*/
+
         return this.courseRepository
                 .findById(courseID)
                 .switchIfEmpty(Mono.error(new Throwable("Course not found")))
