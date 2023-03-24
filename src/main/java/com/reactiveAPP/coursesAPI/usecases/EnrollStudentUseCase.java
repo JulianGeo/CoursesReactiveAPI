@@ -16,8 +16,9 @@ import java.util.function.BiFunction;
 @AllArgsConstructor
 public class EnrollStudentUseCase implements BiFunction<StudentDTO, String, Mono<CourseDTO>> {
 
-    private final ModelMapper mapper;
     private final CourseRepository courseRepository;
+    private final ModelMapper mapper;
+
 
     @Override
     public Mono<CourseDTO> apply(StudentDTO studentDTO, String courseID) {
