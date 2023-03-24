@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -30,6 +31,19 @@ public class StudentDTO {
         this.email=email;
         this.plan=plan;
         this.courses=courses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this==o) return true;
+        if (!(o instanceof StudentDTO)) return false;
+        StudentDTO that=(StudentDTO) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
 

@@ -20,15 +20,14 @@ public class UnenrollCourseUseCase implements BiFunction<StudentDTO, String, Mon
 
     @Override
     public Mono<CourseDTO> apply(StudentDTO studentDTO, String courseID) {
-
         return this.courseRepository
                 .findById(courseID)
                 .switchIfEmpty(Mono.error(new Throwable("Course not found")))
                 .flatMap(course -> {
                     Set<StudentDTO> students1 = course.getStudents();
-                   /* if (!students1.contains(studentDTO)){
+                    if (!students1.contains(studentDTO)){
                         return Mono.error(new Throwable("Student not enrolled yet"))     ;
-                    }*/
+                    }
                     students1.remove(studentDTO);
                     course.setStudents(students1);
                     return this.courseRepository.save(course);
