@@ -57,8 +57,8 @@ class GetCourseByIdUseCaseTest {
         var service = getCourseByIdUseCase.apply(courseID);
 
         StepVerifier.create(service)
-                .expectNextCount(0)
-                .verifyComplete();
+                .expectErrorMessage("Course not found")
+                .verify();
         Mockito.verify(repoMock).findById(courseID);
     }
 }

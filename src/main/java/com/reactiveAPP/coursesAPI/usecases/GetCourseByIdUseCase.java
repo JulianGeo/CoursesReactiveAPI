@@ -20,7 +20,7 @@ private final ModelMapper mapper;
 public Mono<CourseDTO> apply(String ID) {
         return this.courseRepository
         .findById(ID)
-        .switchIfEmpty(Mono.empty())
+        .switchIfEmpty(Mono.error(new Throwable("Course not found")))
         .map(course -> mapper.map(course, CourseDTO.class));
         }
 }
