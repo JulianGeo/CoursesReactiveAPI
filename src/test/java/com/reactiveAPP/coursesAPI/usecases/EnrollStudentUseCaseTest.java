@@ -40,20 +40,22 @@ class EnrollStudentUseCaseTest {
     @Test
     @DisplayName("enrollStudent_Success")
     void enrollStudent(){
-        StudentDTO studentDTO = InstanceProvider.getStudents().iterator().next();
+        StudentDTO studentDTO = InstanceProvider.getNewStudent();
         Course course = InstanceProvider.getCourse();
         var monoCourse =Mono.just(InstanceProvider.getCourse());
         String courseID = course.getId();
 
-        Mockito.when(repoMock.findById(ArgumentMatchers.anyString())).thenReturn(monoCourse);
+        Mockito.when(repoMock.findById(ArgumentMatchers.anyString()))
+                .thenReturn(monoCourse);
         Mockito.when(repoMock.save(any(Course.class)))
-                .thenAnswer(invocationOnMock -> Mono.just(invocationOnMock.getArgument(0)));
+                .thenAnswer(invocationOnMock -> {
+                   return Mono.just(invocationOnMock.getArgument(0));
+                });
 
         var service = enrollStudentUseCase.apply(studentDTO, courseID);
 
         StepVerifier.create(service)
-                //.expectNextMatches(courseDTO -> courseDTO.getName().equals(course.getName()))
-                //.expectNextMatches(courseDTO -> courseDTO.getCoach().equals(InstanceProvider.getCourses().get(0).getCoach()))
+                .expectNextMatches(courseDTO -> courseDTO.getName().equals(course.getName()))
                 .expectNextCount(0)
                 .verifyComplete();
         Mockito.verify(repoMock).save(any(Course.class));

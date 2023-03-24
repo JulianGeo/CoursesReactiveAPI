@@ -22,18 +22,13 @@ public class EnrollStudentUseCase implements BiFunction<StudentDTO, String, Mono
 
     @Override
     public Mono<CourseDTO> apply(StudentDTO studentDTO, String courseID) {
-        System.out.println("use case used");
-        System.out.println("courseID:" +courseID);
-        System.out.println("studentName:" +studentDTO.getName());
+
         return this.courseRepository
                 .findById(courseID)
                 .switchIfEmpty(Mono.error(new Throwable("Course not found")))
                 .flatMap(course -> {
                     Set<StudentDTO> students1 = course.getStudents();
-                    System.out.println("course id inside the return"+courseID);
-                    //System.out.printf(courseID);
-                    students1.add(studentDTO);
-                    course.setStudents(students1);
+                    course.addStudent(studentDTO);
                     return this.courseRepository.save(course);
                 }).map(course -> mapper.map(course, CourseDTO.class));
     }

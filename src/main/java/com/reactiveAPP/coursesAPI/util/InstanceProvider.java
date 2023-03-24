@@ -26,9 +26,13 @@ public class InstanceProvider {
 
     public static Set<StudentDTO> getStudents(){
         return Set.of(
-                new StudentDTO("Id1", "idNum1", "Elvis", "Crespo", "elvis@gmail.com","basic",new HashSet<>()),
-                new StudentDTO("Id2", "idNum2", "Elvis", "Presley", "elvis@gmail.com","basic",new HashSet<>()),
-                new StudentDTO("Id3", "idNum3", "Elvis", "Costello", "elvis@gmail.com","basic",new HashSet<>())
+                new StudentDTO("Id1", "idNum1", "Elvis", "Crespo", "elvis@gmail.com","basic", Set.of("ID1,ID2,ID3")),
+                new StudentDTO("Id2", "idNum2", "Elvis", "Presley", "elvis@gmail.com","basic",Set.of("ID1,ID2,ID3")),
+                new StudentDTO("Id3", "idNum3", "Elvis", "Costello", "elvis@gmail.com","basic",Set.of("ID1,ID2,ID3"))
         );
+    }
+
+    public static StudentDTO getNewStudent(){
+        return new StudentDTO("Id10", "idNum1", "Elvis", "Pelaez", "elvis@gmail.com","basic", Set.of("ID1,ID2,ID3"));
     }
 }
